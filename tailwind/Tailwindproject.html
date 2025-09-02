@@ -74,7 +74,7 @@
   </head>
   <body class="bg-ink-50 text-ink-800 antialiased">
     <div class="min-h-full">
-      <div class="grid lg:grid-cols[264px_1fr]">
+      <div class="grid lg:grid-cols-[264px_1fr]">
         <aside
           class="hidden lg:flex min-h-screen sticky top-0 flex-col gap-3 border-r borderlink-100 bg-white/80 backdrop-blur px-4 py-5"
         >
@@ -86,24 +86,56 @@
             </div>
             <span class="font-semibold tracking-tight">Bibek</span>
           </a>
-          <nav class="mt-1">
+          <nav class="mt-1 flex-1 space-y-6 text-[13px] leading-5">
             <section>
-              <h2></h2>
-              <a href="">
-                <span> <i class="fa-solid fa-grip text-[12px]"></i></span>
-                <span></span>
+              <h2
+                class="px-2 mb-2 text-ink-500 text-[12px] uppercase tracking-wide"
+              >
+                General
+              </h2>
+              <a
+                href="#"
+                class="flex items-center gap-3 rounded-lg px-2.5 py-2 bg-ink-50 text-brand-700 font-medium"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-brand-100 text-brand-700"
+                >
+                  <i class="fa-solid fa-grip text-[14px]"></i
+                ></span>
+                <span>Overview</span>
               </a>
-              <a href="">
-                <span> <i class="fa-solid fa-grip text-[12px]"></i></span>
-                <span></span>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-regular fa-paper-plane text-[14px]"></i
+                ></span>
+                <span class="text-ink-700">Request</span>
               </a>
-              <a href="">
-                <span> <i class="fa-solid fa-grip text-[12px]"></i></span>
-                <span></span>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-regular fa-folder-open text-[14px]"></i
+                ></span>
+                <span class="text-ink-700">Projects</span>
               </a>
-              <a href="">
-                <span> <i class="fa-solid fa-grip text-[12px]"></i></span>
-                <span></span>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-solid fa-clock text-[14px]"></i
+                ></span>
+                <span class="text-ink-700">History</span>
               </a>
             </section>
           </nav>
