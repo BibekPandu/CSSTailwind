@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Landing — Tailwind Prototype</title>
+    <meta
+      name="description"
+      content="Responsive Tailwind landing page prototype."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
+            colors: {
+              brand: {
+                50: "#eef9ff",
+                100: "#d9f1ff",
+                500: "#3b82f6",
+                600: "#2563eb",
+                700: "#1d4ed8",
+              },
+            },
+            boxShadow: {
+              card: "0 10px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.06)",
+            },
+          },
+        },
+        darkMode: "class",
+      };
+    </script>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-slate-800 antialiased">
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200"
+    >
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <a href="#" class="flex items-center gap-2">
+            <div class="h-8 w-8 rounded bg-brand-600"></div>
+            <span class="font-semibold">YourBrand</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-8 text-sm">
+            <a href="#features" class="hover:text-brand-600">Features</a>
+            <a href="#showcase" class="hover:text-brand-600">Showcase</a>
+            <a href="#pricing" class="hover:text-brand-600">Pricing</a>
+            <a href="#faq" class="hover:text-brand-600">FAQ</a>
+          </nav>
+          <div class="hidden md:flex items-center gap-3">
+            <a
+              href="#"
+              class="px-4 py-2 text-sm font-medium rounded-lg border border-slate-300 hover:bg-slate-50"
+              >Sign in</a
+            >
+            <a
+              href="#cta"
+              class="px-4 py-2 text-sm font-medium rounded-lg bg-brand-600 text-white hover:bg-brand-700"
+              >Get started</a
+            >
+          </div>
+          <button
+            id="menuBtn"
+            class="md:hidden inline-flex items-center p-2 rounded-md border border-slate-300"
+            aria-label="Open menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200">
+        <div class="px-4 py-3 space-y-2">
+          <a href="#features" class="block py-2">Features</a>
+          <a href="#showcase" class="block py-2">Showcase</a>
+          <a href="#pricing" class="block py-2">Pricing</a>
+          <a href="#faq" class="block py-2">FAQ</a>
+          <div class="pt-2 flex gap-2">
+            <a
+              href="#"
+              class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-lg border border-slate-300"
+              >Sign in</a
+            >
+            <a
+              href="#cta"
+              class="flex-1 text-center px-4 py-2 text-sm font-medium rounded-lg bg-brand-600 text-white"
+              >Get started</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative overflow-hidden">
+      <div
+        class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-white"
+      ></div>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p
+              class="text-xs font-semibold tracking-widest text-brand-600 uppercase"
+            >
+              New
+            </p>
+            <h1 class="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight">
+              Build responsive sites faster with Tailwind
+            </h1>
+            <p class="mt-4 text-slate-600">
+              A clean, accessible, mobile-first layout you can adapt to your
+              Figma designs.
+            </p>
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+              <a
+                href="#cta"
+                class="px-5 py-3 text-sm font-semibold rounded-lg bg-brand-600 text-white hover:bg-brand-700"
+                >Start free</a
+              >
+              <a
+                href="#showcase"
+                class="px-5 py-3 text-sm font-semibold rounded-lg border border-slate-300 hover:bg-slate-50"
+                >See examples</a
+              >
+            </div>
+            <div class="mt-6 flex items-center gap-4 text-xs text-slate-500">
+              <div class="flex -space-x-2">
+                <div class="h-6 w-6 rounded-full bg-slate-300"></div>
+                <div class="h-6 w-6 rounded-full bg-slate-300"></div>
+                <div class="h-6 w-6 rounded-full bg-slate-300"></div>
+              </div>
+              <span>Trusted by teams worldwide</span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="relative aspect-[16/10] rounded-2xl border border-slate-200 bg-white shadow-card"
+            >
+              <div class="absolute inset-0 grid place-items-center">
+                <div class="text-center">
+                  <div
+                    class="mx-auto h-16 w-16 rounded-xl bg-brand-600/10 grid place-items-center"
+                  >
+                    <span class="text-brand-700 font-bold">UI</span>
+                  </div>
+                  <p class="mt-3 text-sm text-slate-500">
+                    Hero illustration placeholder
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p class="sr-only">
+              Replace with your Figma hero image/illustration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section
+      id="features"
+      class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24"
+    >
+      <div class="max-w-2xl">
+        <h2 class="text-3xl font-bold">Everything you need</h2>
+        <p class="mt-3 text-slate-600">
+          Modular feature cards that stack on mobile and grid on desktop.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Card -->
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-card transition-shadow"
+        >
+          <div
+            class="h-10 w-10 rounded-lg bg-brand-600/10 grid place-items-center text-brand-700 font-bold"
+          >
+            A
+          </div>
+          <h3 class="mt-4 font-semibold">Feature One</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Descriptive text for the first feature block from Figma.
+          </p>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-card transition-shadow"
+        >
+          <div
+            class="h-10 w-10 rounded-lg bg-brand-600/10 grid place-items-center text-brand-700 font-bold"
+          >
+            B
+          </div>
+          <h3 class="mt-4 font-semibold">Feature Two</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Add more copy or icons as per your design.
+          </p>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-card transition-shadow"
+        >
+          <div
+            class="h-10 w-10 rounded-lg bg-brand-600/10 grid place-items-center text-brand-700 font-bold"
+          >
+            C
+          </div>
+          <h3 class="mt-4 font-semibold">Feature Three</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Cards adapt automatically to screen sizes.
+          </p>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-card transition-shadow"
+        >
+          <div
+            class="h-10 w-10 rounded-lg bg-brand-600/10 grid place-items-center text-brand-700 font-bold"
+          >
+            D
+          </div>
+          <h3 class="mt-4 font-semibold">Feature Four</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Use md/lg/xl utilities to match spacing in Figma.
+          </p>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-card transition-shadow"
+        >
+          <div
+            class="h-10 w-10 rounded-lg bg-brand-600/10 grid place-items-center text-brand-700 font-bold"
+          >
+            E
+          </div>
+          <h3 class="mt-4 font-semibold">Feature Five</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Swap these placeholders with your final content.
+          </p>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-card transition-shadow"
+        >
+          <div
+            class="h-10 w-10 rounded-lg bg-brand-600/10 grid place-items-center text-brand-700 font-bold"
+          >
+            F
+          </div>
+          <h3 class="mt-4 font-semibold">Feature Six</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Consistent padding and radius across the system.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase -->
+    <section id="showcase" class="bg-slate-50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl font-bold">Showcase</h2>
+          <p class="mt-3 text-slate-600">
+            Responsive media blocks for product shots or UI previews.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            class="aspect-[16/10] rounded-xl border border-slate-200 bg-white shadow-card"
+          ></div>
+          <div
+            class="aspect-[16/10] rounded-xl border border-slate-200 bg-white shadow-card"
+          ></div>
+          <div
+            class="aspect-[16/10] rounded-xl border border-slate-200 bg-white shadow-card"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section
+      id="pricing"
+      class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24"
+    >
+      <div class="max-w-2xl">
+        <h2 class="text-3xl font-bold">Simple pricing</h2>
+        <p class="mt-3 text-slate-600">
+          Three-tier layout with a highlighted middle plan.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <!-- Plan -->
+        <div class="rounded-2xl border border-slate-200 p-6">
+          <h3 class="font-semibold">Starter</h3>
+          <p class="mt-2 text-sm text-slate-600">Good for trying things out.</p>
+          <p class="mt-4 text-3xl font-bold">
+            $9<span class="text-base font-medium text-slate-500">/mo</span>
+          </p>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li>Basic features</li>
+            <li>Email support</li>
+            <li>1 project</li>
+          </ul>
+          <a
+            href="#cta"
+            class="mt-6 inline-block w-full text-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-50"
+            >Get Starter</a
+          >
+        </div>
+        <div class="rounded-2xl border-2 border-brand-600 p-6 shadow-card">
+          <h3 class="font-semibold">Pro</h3>
+          <p class="mt-2 text-sm text-slate-600">Best for growing teams.</p>
+          <p class="mt-4 text-3xl font-bold">
+            $29<span class="text-base font-medium text-slate-500">/mo</span>
+          </p>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li>Everything in Starter</li>
+            <li>Priority support</li>
+            <li>Unlimited projects</li>
+          </ul>
+          <a
+            href="#cta"
+            class="mt-6 inline-block w-full text-center rounded-lg bg-brand-600 text-white px-4 py-2 text-sm font-semibold hover:bg-brand-700"
+            >Get Pro</a
+          >
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-6">
+          <h3 class="font-semibold">Enterprise</h3>
+          <p class="mt-2 text-sm text-slate-600">Custom needs and SLAs.</p>
+          <p class="mt-4 text-3xl font-bold">Contact</p>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li>All Pro features</li>
+            <li>Dedicated support</li>
+            <li>Security reviews</li>
+          </ul>
+          <a
+            href="#cta"
+            class="mt-6 inline-block w-full text-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-50"
+            >Contact sales</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-slate-50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl font-bold">Frequently asked questions</h2>
+          <p class="mt-3 text-slate-600">
+            Accordions can be added later; simple grid for now.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <div class="rounded-xl border border-slate-200 bg-white p-6">
+            <h3 class="font-semibold">How do I customize this?</h3>
+            <p class="mt-2 text-sm text-slate-600">
+              Replace copy and adjust spacing to match your Figma specs.
+            </p>
+          </div>
+          <div class="rounded-xl border border-slate-200 bg-white p-6">
+            <h3 class="font-semibold">Is this responsive?</h3>
+            <p class="mt-2 text-sm text-slate-600">
+              Yes. Try resizing the browser or testing on your phone.
+            </p>
+          </div>
+          <div class="rounded-xl border border-slate-200 bg-white p-6">
+            <h3 class="font-semibold">Dark mode?</h3>
+            <p class="mt-2 text-sm text-slate-600">
+              We can enable it once the palette is finalized.
+            </p>
+          </div>
+          <div class="rounded-xl border border-slate-200 bg-white p-6">
+            <h3 class="font-semibold">Can you match our design system?</h3>
+            <p class="mt-2 text-sm text-slate-600">
+              Yes—share tokens (colors, type, radii, shadows) or Figma
+              variables.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta" class="relative overflow-hidden">
+      <div
+        class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-600 to-brand-700"
+      ></div>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div class="grid md:grid-cols-2 items-center gap-8 text-white">
+          <div>
+            <h2 class="text-3xl font-bold">Ready to build?</h2>
+            <p class="mt-2 text-white/80">
+              This section highlights your primary conversion action.
+            </p>
+          </div>
+          <form class="bg-white rounded-xl p-2 flex gap-2">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 outline-none focus:ring-2 focus:ring-brand-600"
+            />
+            <button
+              type="submit"
+              class="rounded-lg bg-brand-600 px-4 py-2 text-white font-semibold hover:bg-brand-700"
+            >
+              Join
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
+          <p class="text-sm text-slate-500">
+            © <span id="y"></span> YourBrand. All rights reserved.
+          </p>
+          <nav class="flex items-center gap-4 text-sm">
+            <a href="#" class="hover:text-brand-600">Privacy</a>
+            <a href="#" class="hover:text-brand-600">Terms</a>
+            <a href="#" class="hover:text-brand-600">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+      document.getElementById("menuBtn").addEventListener("click", function () {
+        const m = document.getElementById("mobileMenu");
+        m.classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>
