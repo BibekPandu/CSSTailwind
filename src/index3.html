@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bibek's — Dashboard</title>
+
+    <!-- Inter font -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
+            colors: {
+              ink: {
+                50: "#f8fafc",
+                100: "#f1f5f9",
+                200: "#e2e8f0",
+                300: "#cbd5e1",
+                400: "#94a3b8",
+                500: "#64748b",
+                600: "#475569",
+                700: "#334155",
+                800: "#1f2937",
+                900: "#0f172a",
+              },
+              brand: {
+                50: "#f4f7ff",
+                100: "#e9efff",
+                200: "#cfdcff",
+                300: "#a5bdff",
+                400: "#7a9dff",
+                500: "#5b86ff",
+                600: "#476de6",
+                700: "#3757bf",
+                800: "#2e4aa0",
+                900: "#283f87",
+              },
+              accent: { 500: "#8b5cf6" },
+            },
+            boxShadow: {
+              soft: "0 14px 32px -20px rgba(15,23,42,.22), 0 10px 14px -12px rgba(15,23,42,.08)",
+            },
+            borderRadius: { xl: "1rem", "2xl": "1.25rem" },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome 6 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BzQ3LhY9GqQbK5R6x0DZG2YeliYg+6TSGT+bVfVg4Y1Yx4oG2JZ7r3z4Pp2vT8R7A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      .bar {
+        height: 38px;
+        display: grid;
+        grid-auto-flow: column;
+        align-items: end;
+        gap: 0.3rem;
+      }
+      .bar span {
+        width: 8px;
+        border-radius: 4px;
+        background: linear-gradient(180deg, #c7d2fe, #6366f1);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .card {
+          transition: box-shadow 0.18s ease, transform 0.18s ease;
+        }
+        .card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 22px 44px -28px rgba(2, 6, 23, 0.35),
+            0 14px 18px -16px rgba(2, 6, 23, 0.1);
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-ink-50 text-ink-800 antialiased">
+    <div class="min-h-full">
+      <div class="grid lg:grid-cols-[264px_1fr]">
+        <!-- Sidebar -->
+        <aside
+          class="hidden lg:flex min-h-screen sticky top-0 flex-col gap-3 border-r border-ink-100 bg-white/80 backdrop-blur px-4 py-5"
+        >
+          <a href="#" class="flex items-center gap-2 px-2">
+            <div
+              class="h-9 w-9 grid place-items-center rounded-xl bg-brand-600 text-white font-bold"
+            >
+              P
+            </div>
+            <span class="font-semibold tracking-tight">Bibek</span>
+          </a>
+
+          <nav class="mt-1 flex-1 space-y-6 text-[13px] leading-5">
+            <section>
+              <h2
+                class="px-2 mb-2 text-ink-500 text-[11px] uppercase tracking-wide"
+              >
+                General
+              </h2>
+
+              <!-- Active state -->
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 bg-ink-50 text-brand-700 font-medium"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-brand-100 text-brand-700"
+                >
+                  <i class="fa-solid fa-grip text-[12px]"></i>
+                </span>
+                <span>Overview</span>
+              </a>
+
+              <!-- Hover state: icon chip tints like screenshot -->
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-regular fa-paper-plane text-[12px]"></i>
+                </span>
+                <span class="text-ink-700">Request</span>
+              </a>
+
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-regular fa-folder-open text-[12px]"></i>
+                </span>
+                <span class="text-ink-700">Projects</span>
+              </a>
+
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-solid fa-clock text-[12px]"></i>
+                </span>
+                <span class="text-ink-700">History</span>
+              </a>
+            </section>
+
+            <section>
+              <h2
+                class="px-2 mb-2 text-ink-500 text-[11px] uppercase tracking-wide"
+              >
+                Tools
+              </h2>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-solid fa-robot text-[12px]"></i>
+                </span>
+                <span>Template AI</span>
+              </a>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-solid fa-chart-line text-[12px]"></i>
+                </span>
+                <span>Library Chart</span>
+              </a>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-regular fa-file-lines text-[12px]"></i>
+                </span>
+                <span>Document</span>
+              </a>
+            </section>
+
+            <section>
+              <h2
+                class="px-2 mb-2 text-ink-500 text-[11px] uppercase tracking-wide"
+              >
+                Other
+              </h2>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-regular fa-circle-question text-[12px]"></i>
+                </span>
+                <span>Get Help</span>
+              </a>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-solid fa-plug text-[12px]"></i>
+                </span>
+                <span>Plugin</span>
+              </a>
+              <a
+                href="#"
+                class="group flex items-center gap-3 rounded-lg px-2.5 py-2 hover:bg-ink-50"
+              >
+                <span
+                  class="h-6 w-6 grid place-items-center rounded-md bg-ink-50 text-ink-500 group-hover:bg-brand-50 group-hover:text-brand-700"
+                >
+                  <i class="fa-solid fa-puzzle-piece text-[12px]"></i>
+                </span>
+                <span>Integration</span>
+              </a>
+            </section>
+          </nav>
+
+          <section class="mt-auto space-y-2">
+            <div
+              class="flex items-center gap-3 rounded-xl border border-ink-100 p-2"
+            >
+              <img
+                class="h-9 w-9 rounded-full object-cover"
+                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=256&auto=format&fit=crop"
+                alt="User avatar"
+              />
+              <div>
+                <p class="text-sm font-medium leading-5">Bibek's Bibek's</p>
+                <p class="text-[11px] text-ink-500">bibek01@gmail.com</p>
+              </div>
+            </div>
+            <button
+              class="w-full rounded-lg bg-ink-900 text-white py-2 text-sm hover:bg-ink-800"
+            >
+              Upgrade Plan
+            </button>
+          </section>
+        </aside>
+
+        <!-- Main -->
+        <main class="min-h-screen">
+          <!-- Topbar -->
+          <header
+            class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-ink-100"
+          >
+            <div class="px-3 sm:px-4 lg:px-6">
+              <div class="h-16 flex items-center gap-3">
+                <p class="hidden sm:flex text-sm text-ink-600">
+                  <span class="font-medium">Good Morning, Bibek</span
+                  ><span class="ml-2" aria-hidden="true">👋</span>
+                </p>
+
+                <div class="ml-auto flex items-center gap-2 sm:gap-3">
+                  <form
+                    role="search"
+                    class="hidden md:flex items-center gap-2 rounded-lg border border-ink-200 bg-white px-3 py-1.5"
+                  >
+                    <i
+                      class="fa-solid fa-magnifying-glass h-4 w-4 text-ink-400"
+                    ></i>
+                    <input
+                      class="w-56 outline-none text-sm placeholder:text-ink-400"
+                      placeholder="Search"
+                      aria-label="Search"
+                    />
+                  </form>
+                  <span
+                    class="h-9 w-9 grid place-items-center rounded-full border border-ink-200"
+                    ><i class="fa-regular fa-star text-ink-600"></i
+                  ></span>
+                  <span
+                    class="h-9 w-9 grid place-items-center rounded-full border border-ink-200"
+                    ><i class="fa-regular fa-bell text-ink-600"></i
+                  ></span>
+                  <span
+                    class="h-9 w-9 grid place-items-center rounded-full border border-ink-200"
+                    ><i class="fa-solid fa-gear text-ink-600"></i
+                  ></span>
+                  <span
+                    class="rounded-lg bg-accent-500 text-white px-3 py-2 text-sm"
+                    ><i class="fa-solid fa-arrow-up-right-from-square mr-2"></i
+                    >Export Data</span
+                  >
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <!-- Content -->
+          <div class="p-3 sm:p-4 lg:p-6 space-y-6">
+            <!-- Title -->
+            <section>
+              <h1 class="text-[20px] font-semibold tracking-tight">
+                Dashboard
+                <span
+                  class="ml-2 text-[11px] rounded-full bg-ink-100 px-2 py-[3px] align-middle"
+                  >48 Prompt</span
+                >
+              </h1>
+              <p class="text-sm text-ink-500">
+                Track your sales and achieve your financial goals
+              </p>
+            </section>
+
+            <!-- KPI row (3 cards like screenshot) -->
+            <section class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+              <article
+                class="card rounded-2xl border border-ink-100 bg-white p-4 shadow-soft"
+              >
+                <div class="flex items-start justify-between">
+                  <div>
+                    <p class="text-[11px] text-ink-500">Revenue</p>
+                    <p class="mt-1 text-[26px] font-bold">
+                      $597,095.<span class="text-ink-400">04</span>
+                    </p>
+                    <p class="mt-1 text-[11px] text-emerald-600 font-medium">
+                      <i class="fa-solid fa-arrow-trend-up mr-1"></i>+12% vs
+                      prev. month
+                    </p>
+                  </div>
+                  <div class="text-[11px] text-ink-500">
+                    Monthly <i class="fa-solid fa-angle-down"></i>
+                  </div>
+                </div>
+                <div class="mt-3 bar">
+                  <span style="height: 38px"></span
+                  ><span style="height: 24px"></span
+                  ><span style="height: 30px"></span
+                  ><span style="height: 18px"></span
+                  ><span style="height: 34px"></span
+                  ><span style="height: 22px"></span>
+                </div>
+              </article>
+
+              <article
+                class="card rounded-2xl border border-ink-100 bg-white p-4 shadow-soft"
+              >
+                <div class="flex items-start justify-between">
+                  <div>
+                    <p class="text-[11px] text-ink-500">Total Sales</p>
+                    <p class="mt-1 text-[26px] font-bold">
+                      $376,517.<span class="text-ink-400">27</span>
+                    </p>
+                    <p class="mt-1 text-[11px] text-emerald-600 font-medium">
+                      <i class="fa-solid fa-arrow-trend-up mr-1"></i>+24% vs
+                      prev. month
+                    </p>
+                  </div>
+
+                  <div class="text-[11px] text-ink-500">
+                    Monthly <i class="fa-solid fa-angle-down text-ink-600"></i>
+                  </div>
+                </div>
+                <div class="mt-3 bar">
+                  <span style="height: 18px"></span
+                  ><span style="height: 28px"></span
+                  ><span style="height: 22px"></span
+                  ><span style="height: 34px"></span
+                  ><span style="height: 16px"></span
+                  ><span style="height: 30px"></span>
+                </div>
+              </article>
+
+              <article
+                class="card rounded-2xl border border-ink-100 bg-white p-4 shadow-soft"
+              >
+                <div class="flex items-start justify-between">
+                  <p class="text-[11px] text-ink-500">Website</p>
+                  <p class="text-[11px] text-ink-500">E‑Commerce</p>
+                </div>
+                <div class="mt-2 space-y-3">
+                  <div class="h-2 rounded-full bg-ink-100 overflow-hidden">
+                    <div
+                      class="h-full w-[43%] rounded-full bg-indigo-400"
+                    ></div>
+                  </div>
+                  <div class="h-2 rounded-full bg-ink-100 overflow-hidden">
+                    <div class="h-full w-[90%] rounded-full bg-amber-400"></div>
+                  </div>
+                </div>
+                <div class="mt-2 flex justify-between text-[11px] text-ink-600">
+                  <span>43.9%</span><span>90.3%</span>
+                </div>
+              </article>
+            </section>
+
+            <!-- Table + single Platform Value (right) -->
+            <section class="grid lg:grid-cols-[1fr_360px] gap-4">
+              <article
+                class="rounded-2xl border border-ink-100 bg-white shadow-soft overflow-hidden"
+              >
+                <header
+                  class="flex items-center justify-between px-4 py-3 border-b border-ink-100"
+                >
+                  <p class="text-sm font-medium">Recent Transaction</p>
+                  <div
+                    class="text-[12px] text-ink-600 inline-flex items-center gap-1"
+                  >
+                    Daily <i class="fa-solid fa-caret-down text-ink-500"></i>
+                  </div>
+                </header>
+
+                <div class="overflow-x-auto">
+                  <table class="min-w-full text-sm">
+                    <thead class="bg-ink-50 text-ink-600">
+                      <tr>
+                        <th class="px-4 py-2 text-left font-medium">Product</th>
+                        <th class="px-4 py-2 text-left font-medium">
+                          Category
+                        </th>
+                        <th class="px-4 py-2 text-left font-medium">Price</th>
+                        <th class="px-4 py-2 text-left font-medium">Date</th>
+                        <th class="px-4 py-2 text-left font-medium">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-ink-100">
+                      <tr>
+                        <td class="px-4 py-2">Coral Medical</td>
+                        <td class="px-4 py-2 text-ink-600">Website</td>
+                        <td class="px-4 py-2">$20,006</td>
+                        <td class="px-4 py-2">Dec 27 2024</td>
+                        <td class="px-4 py-2">
+                          <span
+                            class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-emerald-700"
+                            ><i
+                              class="fa-solid fa-circle-check text-emerald-600 text-[10px]"
+                            ></i
+                            >Complete</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-2">Rapple Tech</td>
+                        <td class="px-4 py-2 text-ink-600">Mobile App</td>
+                        <td class="px-4 py-2">$77,006</td>
+                        <td class="px-4 py-2">Dec 28 2024</td>
+                        <td class="px-4 py-2">
+                          <span
+                            class="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-sky-700"
+                            ><i
+                              class="fa-solid fa-truck text-sky-600 text-[10px]"
+                            ></i
+                            >Shipping</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-2">Lingomastery</td>
+                        <td class="px-4 py-2 text-ink-600">Webapp Design</td>
+                        <td class="px-4 py-2">$3,812</td>
+                        <td class="px-4 py-2">Dec 29 2024</td>
+                        <td class="px-4 py-2">
+                          <span
+                            class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-amber-700"
+                            ><i
+                              class="fa-solid fa-box-open text-amber-600 text-[10px]"
+                            ></i
+                            >Packing</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-2">Georgia Caring</td>
+                        <td class="px-4 py-2 text-ink-600">Logo Design</td>
+                        <td class="px-4 py-2">$960.62</td>
+                        <td class="px-4 py-2">Jan 01 2024</td>
+                        <td class="px-4 py-2">
+                          <span
+                            class="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2 py-0.5 text-rose-700"
+                            ><i
+                              class="fa-regular fa-circle-xmark text-rose-600 text-[10px]"
+                            ></i
+                            >Canceled</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-2">Rick Palemuxy</td>
+                        <td class="px-4 py-2 text-ink-600">Branding</td>
+                        <td class="px-4 py-2">$118.05</td>
+                        <td class="px-4 py-2">Jan 02 2024</td>
+                        <td class="px-4 py-2">
+                          <span
+                            class="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-sky-700"
+                            ><i
+                              class="fa-solid fa-truck text-sky-600 text-[10px]"
+                            ></i
+                            >Shipping</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-2">Uranious Team</td>
+                        <td class="px-4 py-2 text-ink-600">Landing Page</td>
+                        <td class="px-4 py-2">$37,822</td>
+                        <td class="px-4 py-2">Jan 03 2024</td>
+                        <td class="px-4 py-2">
+                          <span
+                            class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-amber-700"
+                            ><i
+                              class="fa-solid fa-box-open text-amber-600 text-[10px]"
+                            ></i
+                            >Packing</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-2">Flowsive Ontario</td>
+                        <td class="px-4 py-2 text-ink-600">Responsive</td>
+                        <td class="px-4 py-2">$6,541</td>
+                        <td class="px-4 py-2">Jan 04 2024</td>
+                        <td class="px-4 py-2">
+                          <span
+                            class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-emerald-700"
+                            ><i
+                              class="fa-solid fa-circle-check text-emerald-600 text-[10px]"
+                            ></i
+                            >Complete</span
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <footer
+                  class="flex items-center justify-between px-4 py-3 border-t border-ink-100 text-[12px]"
+                >
+                  <p class="text-ink-600">Page 1 of 100</p>
+                  <nav class="inline-flex items-center gap-1">
+                    <span
+                      class="h-8 w-8 grid place-items-center rounded border border-ink-200 text-ink-500"
+                      >‹</span
+                    >
+                    <span
+                      class="h-8 w-8 grid place-items-center rounded bg-ink-900 text-white"
+                      >1</span
+                    >
+                    <span
+                      class="h-8 w-8 grid place-items-center rounded border border-ink-200"
+                      >2</span
+                    >
+                    <span
+                      class="h-8 w-8 grid place-items-center rounded border border-ink-200"
+                      >3</span
+                    >
+                    <span class="px-1" aria-hidden="true">…</span>
+                    <span
+                      class="h-8 w-8 grid place-items-center rounded border border-ink-200"
+                      >9</span
+                    >
+                    <span
+                      class="h-8 w-8 grid place-items-center rounded border border-ink-200 text-ink-500"
+                      >›</span
+                    >
+                  </nav>
+                </footer>
+              </article>
+
+              <!-- Only Platform Value card (donut) -->
+              <aside
+                class="rounded-2xl border border-ink-100 bg-white p-4 shadow-soft"
+              >
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-medium">Platform Value</p>
+                  <span
+                    class="text-[12px] text-ink-600 inline-flex items-center gap-1"
+                    >Yearly <i class="fa-solid fa-caret-down text-ink-500"></i
+                  ></span>
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 place-items-center">
+                  <div class="relative h-40 w-40">
+                    <svg viewBox="0 0 36 36" class="-rotate-90">
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        stroke="#e5e7eb"
+                        stroke-width="4"
+                      ></circle>
+                      <path
+                        d="M18 2a16 16 0 0 1 0 32"
+                        fill="none"
+                        stroke="#8b5cf6"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-dasharray="64 100"
+                      ></path>
+                    </svg>
+                    <div class="absolute inset-0 grid place-items-center">
+                      <div class="text-center">
+                        <p class="text-xl font-bold text-violet-600">+64%</p>
+                        <p class="text-[11px] text-ink-500">vs prev. year</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <ul class="mt-4 text-[12px] space-y-1">
+                  <li class="flex items-center justify-between">
+                    <span class="inline-flex items-center gap-2 text-ink-600"
+                      ><span class="h-2 w-2 rounded-full bg-emerald-500"></span
+                      >Instagram</span
+                    >
+                    <span>$574,279</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span class="inline-flex items-center gap-2 text-ink-600"
+                      ><span class="h-2 w-2 rounded-full bg-sky-500"></span
+                      >Facebook</span
+                    >
+                    <span>$308,047</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span class="inline-flex items-center gap-2 text-ink-600"
+                      ><span class="h-2 w-2 rounded-full bg-indigo-500"></span
+                      >Tiktok</span
+                    >
+                    <span>$647,059</span>
+                  </li>
+                </ul>
+              </aside>
+            </section>
+
+            <!-- CTA Banner -->
+            <section
+              class="rounded-2xl border border-ink-100 bg-white p-5 shadow-soft"
+            >
+              <div class="grid md:grid-cols-[1fr_auto] items-center gap-4">
+                <div>
+                  <p class="text-[18px]">
+                    <span class="font-semibold text"
+                      >Isn't the dashboard result suitable?</span
+                    >
+                    Create it again now
+                  </p>
+                  <p class="text-[18px] text-ink-500 mt-1">
+                    Track your sales and achieve your financial goals
+                  </p>
+                </div>
+                <a
+                  class="inline-flex items-center gap-2 rounded-lg border border-ink-200 bg-white px-4 py-2 text-sm hover:bg-ink-50"
+                  href="#"
+                >
+                  <i class="fa-regular fa-square-plus"></i> Create New Now
+                  <i class="fa-solid fa-gear ml-2 text-ink-500"></i>
+                </a>
+              </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="py-6 text-[12px] text-ink-500">
+              <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-2"
+              >
+                <p>© 2024 Bibek</p>
+                <nav class="flex items-center gap-3">
+                  <a href="#" class="hover:text-ink-700">Privacy</a>
+                  <a href="#" class="hover:text-ink-700">Terms</a>
+                  <a href="#" class="hover:text-ink-700">Status</a>
+                </nav>
+              </div>
+            </footer>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
