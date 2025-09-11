@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Donezo — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
+            colors: {
+              ink: {
+                50: "#f8faf9",
+                100: "#eef3f0",
+                200: "#dde7e1",
+                300: "#c7d5cd",
+                400: "#98b4a9",
+                500: "#6f8f86",
+                600: "#566f69",
+                700: "#3f524e",
+                800: "#2c3b37",
+                900: "#1e2926",
+              },
+              greenx: {
+                50: "#edf7f2",
+                100: "#d8efe4",
+                200: "#b8e2cf",
+                300: "#8dd0b4",
+                400: "#5dbb95",
+                500: "#2fa276",
+                600: "#218663",
+                700: "#1b6d53",
+                800: "#165745",
+                900: "#0f4538",
+              },
+              card: "#ffffff",
+            },
+            boxShadow: {
+              soft: "0 10px 30px -15px rgba(2,6,23,.25), 0 10px 10px -10px rgba(2,6,23,.08)",
+            },
+            borderRadius: { xl: "1rem", "2xl": "1.25rem" },
+          },
+        },
+      };
+    </script>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      /* subtle glass card gradient for KPI */
+      .kpi-bg {
+        background: linear-gradient(
+          135deg,
+          #0f4538 0%,
+          #1b6d53 40%,
+          #2fa276 100%
+        );
+      }
+      .kpi-bg-2 {
+        background: linear-gradient(135deg, #0f4538 0%, #0f4538 100%);
+      }
+      .skeleton {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.04),
+          rgba(0, 0, 0, 0.06),
+          rgba(0, 0, 0, 0.04)
+        );
+        background-size: 200% 100%;
+        animation: sh 1.2s linear infinite;
+      }
+      @keyframes sh {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-ink-50 text-ink-900 antialiased">
+    <div class="min-h-full p-3 sm:p-4">
+      <div
+        class="mx-auto max-w-[1300px] rounded-2xl bg-white shadow-soft ring-1 ring-ink-100 overflow-hidden"
+      >
+        <!-- Top bar -->
+        <div
+          class="flex items-center gap-3 px-3 sm:px-5 py-3 border-b border-ink-100 bg-white/80 backdrop-blur"
+        >
+          <button
+            id="drawerBtn"
+            class="lg:hidden h-9 w-9 grid place-items-center rounded border border-ink-200"
+          >
+            ☰
+          </button>
+          <div class="hidden sm:flex items-center gap-2">
+            <div
+              class="h-9 w-9 grid place-items-center rounded-lg bg-greenx-600 text-white font-black"
+            >
+              D
+            </div>
+            <p class="font-semibold">Donezo</p>
+          </div>
+          <div class="relative ml-auto">
+            <input
+              id="search"
+              class="w-64 sm:w-80 rounded-full border border-ink-200 pl-9 pr-3 py-2 text-sm outline-none"
+              placeholder="Search task"
+            />
+            <svg
+              class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-400"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
+          <div class="hidden sm:flex items-center gap-2">
+            <button
+              class="h-9 w-9 grid place-items-center rounded-full border border-ink-200"
+            >
+              ✉️
+            </button>
+            <button
+              class="h-9 w-9 grid place-items-center rounded-full border border-ink-200"
+            >
+              🔔
+            </button>
+          </div>
+          <div
+            class="flex items-center gap-2 rounded-full border border-ink-200 px-2 py-1"
+          >
+            <img
+              class="h-8 w-8 rounded-full object-cover"
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=256&auto=format&fit=crop"
+              alt=""
+            />
+            <div class="hidden sm:block leading-tight">
+              <p class="text-sm font-medium">Totok Michael</p>
+              <p class="text-[11px] text-ink-600">tmichael20@mail.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-[260px_1fr_340px] gap-4 p-3 sm:p-5">
+          <!-- Sidebar -->
+          <aside class="hidden lg:block">
+            <div class="rounded-2xl bg-ink-50 border border-ink-100 p-3">
+              <p class="px-3 py-2 text-xs uppercase text-ink-500">Menu</p>
+              <nav class="space-y-1 text-[15px]">
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 bg-white border border-ink-100"
+                  href="#"
+                  ><span>🏠</span>Dashboard<span
+                    class="ml-auto text-[11px] rounded-full bg-ink-100 px-2"
+                    >EN</span
+                  ></a
+                >
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-white"
+                  href="#"
+                  ><span>✅</span>Tasks</a
+                >
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-white"
+                  href="#"
+                  ><span>📆</span>Calendar</a
+                >
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-white"
+                  href="#"
+                  ><span>📊</span>Analytics</a
+                >
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-white"
+                  href="#"
+                  ><span>👥</span>Team</a
+                >
+              </nav>
+
+              <p class="px-3 pt-4 pb-2 text-xs uppercase text-ink-500">
+                General
+              </p>
+              <nav class="space-y-1 text-[15px]">
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-white"
+                  href="#"
+                  ><span>⚙️</span>Settings</a
+                >
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-white"
+                  href="#"
+                  ><span>❓</span>Help</a
+                >
+                <a
+                  class="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-white"
+                  href="#"
+                  ><span>⏏</span>Logout</a
+                >
+              </nav>
+
+              <div class="mt-5 rounded-2xl kpi-bg p-4 text-white">
+                <p class="text-sm/5">Download our Mobile App</p>
+                <p class="mt-1 text-xs text-white/80">Get it on app stores</p>
+                <button
+                  class="mt-3 w-full rounded-lg bg-white text-greenx-800 py-2 text-sm font-semibold"
+                >
+                  Download
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main -->
+          <main class="space-y-4">
+            <!-- Header row -->
+            <div class="flex flex-wrap items-center gap-3">
+              <div>
+                <h1 class="text-2xl font-bold">Dashboard</h1>
+                <p class="text-sm text-ink-600">
+                  Plan, prioritize, and accomplish your tasks with ease.
+                </p>
+              </div>
+              <div class="ml-auto flex items-center gap-2">
+                <button
+                  id="addBtn"
+                  class="rounded-full bg-greenx-700 text-white px-4 py-2 text-sm"
+                >
+                  + Add Project
+                </button>
+                <label class="relative">
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept=".json"
+                    class="sr-only"
+                  />
+                  <span
+                    class="inline-block cursor-pointer rounded-full border border-ink-200 bg-white px-4 py-2 text-sm"
+                    >Import Data</span
+                  >
+                </label>
+              </div>
+            </div>
+
+            <!-- KPI cards -->
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-3">
+              <div class="rounded-2xl kpi-bg text-white p-4">
+                <div
+                  class="flex items-center justify-between text-sm text-white/80"
+                >
+                  <p>Total Projects</p>
+                  <button class="rounded bg-white/20 px-2 py-0.5">ⓘ</button>
+                </div>
+                <p id="kpiTotal" class="mt-2 text-3xl font-extrabold">0</p>
+                <p class="mt-1 text-xs text-white/80">
+                  ↑ Increased from last month
+                </p>
+              </div>
+              <div class="rounded-2xl bg-white border border-ink-100 p-4">
+                <div
+                  class="flex items-center justify-between text-sm text-ink-600"
+                >
+                  <p>Ended Projects</p>
+                  <span>⟳</span>
+                </div>
+                <p id="kpiEnded" class="mt-2 text-3xl font-bold">0</p>
+                <p class="mt-1 text-xs text-ink-500">
+                  ↑ Increased from last month
+                </p>
+              </div>
+              <div class="rounded-2xl bg-white border border-ink-100 p-4">
+                <div
+                  class="flex items-center justify-between text-sm text-ink-600"
+                >
+                  <p>Running Projects</p>
+                  <span>⟳</span>
+                </div>
+                <p id="kpiRunning" class="mt-2 text-3xl font-bold">0</p>
+                <p class="mt-1 text-xs text-ink-500">
+                  ↑ Increased from last month
+                </p>
+              </div>
+              <div class="rounded-2xl bg-white border border-ink-100 p-4">
+                <div
+                  class="flex items-center justify-between text-sm text-ink-600"
+                >
+                  <p>Pending Project</p>
+                  <span>⟳</span>
+                </div>
+                <p id="kpiPending" class="mt-2 text-3xl font-bold">0</p>
+                <p class="mt-1 text-xs text-ink-500">On Discuss</p>
+              </div>
+            </div>
+
+            <!-- Analytics + Reminders -->
+            <div class="grid xl:grid-cols-3 gap-3">
+              <div
+                class="rounded-2xl bg-white border border-ink-100 p-4 xl:col-span-2"
+              >
+                <p class="text-sm font-medium">Project Analytics</p>
+                <canvas id="barChart" class="mt-2 h-28"></canvas>
+              </div>
+              <div class="rounded-2xl bg-white border border-ink-100 p-4">
+                <p class="text-sm font-medium">Reminders</p>
+                <div
+                  class="mt-3 rounded-xl bg-ink-50 border border-ink-100 p-3"
+                >
+                  <p class="font-medium">Meeting with Arc Company</p>
+                  <p class="text-xs text-ink-600">Time: 02:00 pm — 04:00 pm</p>
+                  <button
+                    class="mt-3 w-full rounded-lg bg-greenx-700 text-white py-2 text-sm"
+                  >
+                    Start Meeting
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team + Progress -->
+            <div class="grid lg:grid-cols-3 gap-3">
+              <div
+                class="rounded-2xl bg-white border border-ink-100 p-4 lg:col-span-2"
+              >
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-medium">Team Collaboration</p>
+                  <button
+                    id="addMemberBtn"
+                    class="rounded-full border border-ink-200 px-3 py-1.5 text-sm"
+                  >
+                    + Add Member
+                  </button>
+                </div>
+                <ul id="teamList" class="mt-3 grid gap-3">
+                  <!-- populated via JS -->
+                </ul>
+              </div>
+              <div class="rounded-2xl bg-white border border-ink-100 p-4">
+                <p class="text-sm font-medium">Project Progress</p>
+                <div class="mt-3 grid grid-cols-[140px_1fr] gap-3 items-center">
+                  <canvas id="donut" width="140" height="140"></canvas>
+                  <ul class="text-sm space-y-1">
+                    <li class="flex items-center gap-2">
+                      <span class="h-2 w-2 rounded-full bg-greenx-700"></span
+                      >Completed
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="h-2 w-2 rounded-full bg-amber-500"></span>In
+                      Progress
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="h-2 w-2 rounded-full bg-ink-300"></span
+                      >Pending
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right column widgets (projects list + time tracker) appear in sidebar section on xl screens -->
+
+            <div class="rounded-2xl bg-white border border-ink-100 p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-medium">Project</p>
+                <button
+                  id="newQuick"
+                  class="rounded-full border border-ink-200 px-3 py-1.5 text-sm"
+                >
+                  + New
+                </button>
+              </div>
+              <ul id="projectList" class="mt-3 grid gap-2 text-sm">
+                <!-- populated -->
+              </ul>
+            </div>
+
+            <div class="rounded-2xl kpi-bg-2 text-white p-4">
+              <p class="text-sm/5">Time Tracker</p>
+              <p id="timer" class="mt-2 text-3xl font-extrabold tabular-nums">
+                00:00:00
+              </p>
+              <div class="mt-3 flex items-center gap-2">
+                <button
+                  id="startTimer"
+                  class="rounded-full bg-greenx-600 px-4 py-2 text-sm"
+                >
+                  Start
+                </button>
+                <button
+                  id="pauseTimer"
+                  class="rounded-full border border-white/30 px-4 py-2 text-sm"
+                >
+                  Pause
+                </button>
+                <button
+                  id="resetTimer"
+                  class="rounded-full border border-white/30 px-4 py-2 text-sm"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </main>
+
+          <!-- Right rail -->
+          <aside class="space-y-3">
+            <div class="rounded-2xl bg-white border border-ink-100 p-4">
+              <p class="text-sm font-medium">Project (Quick)</p>
+              <ul id="projectListRail" class="mt-3 grid gap-2 text-sm">
+                <!-- populated -->
+              </ul>
+            </div>
+            <div class="rounded-2xl kpi-bg text-white p-4">
+              <p class="text-sm/5">Time Tracker</p>
+              <p id="timer2" class="mt-2 text-3xl font-extrabold tabular-nums">
+                00:00:00
+              </p>
+              <div class="mt-3 grid grid-cols-3 gap-2">
+                <button
+                  id="start2"
+                  class="rounded-lg bg-white text-greenx-800 py-2 text-sm"
+                >
+                  Start
+                </button>
+                <button id="pause2" class="rounded-lg bg-white/20 py-2 text-sm">
+                  Pause
+                </button>
+                <button id="reset2" class="rounded-lg bg-white/20 py-2 text-sm">
+                  Reset
+                </button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer for mobile -->
+    <div id="drawer" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/30"></div>
+      <aside class="absolute left-0 top-0 h-full w-80 bg-white p-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div
+              class="h-9 w-9 grid place-items-center rounded-lg bg-greenx-600 text-white font-black"
+            >
+              D
+            </div>
+            <p class="font-semibold">Donezo</p>
+          </div>
+          <button
+            id="closeDrawer"
+            class="h-9 w-9 grid place-items-center rounded border border-ink-200"
+          >
+            ✕
+          </button>
+        </div>
+        <nav class="mt-4 space-y-1">
+          <a class="block rounded-xl px-3 py-2 bg-ink-50" href="#">Dashboard</a>
+          <a class="block rounded-xl px-3 py-2 hover:bg-ink-50" href="#"
+            >Tasks</a
+          >
+          <a class="block rounded-xl px-3 py-2 hover:bg-ink-50" href="#"
+            >Calendar</a
+          >
+          <a class="block rounded-xl px-3 py-2 hover:bg-ink-50" href="#"
+            >Analytics</a
+          >
+          <a class="block rounded-xl px-3 py-2 hover:bg-ink-50" href="#"
+            >Team</a
+          >
+        </nav>
+      </aside>
+    </div>
+
+    Add Project Modal
+    <div id="modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="absolute inset-0 grid place-items-center p-4">
+        <form
+          id="projectForm"
+          class="w-full max-w-md rounded-2xl bg-white p-5 ring-1 ring-ink-100"
+        >
+          <div class="flex items-center justify-between">
+            <p class="font-semibold">Add Project</p>
+            <button
+              id="closeModal"
+              type="button"
+              class="h-8 w-8 grid place-items-center rounded border border-ink-200"
+            >
+              ✕
+            </button>
+          </div>
+          <label class="block mt-3 text-sm"
+            >Title
+            <input
+              name="title"
+              required
+              class="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2 outline-none"
+            />
+          </label>
+          <label class="block mt-3 text-sm"
+            >Assignee
+            <input
+              name="assignee"
+              class="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2 outline-none"
+            />
+          </label>
+          <label class="block mt-3 text-sm"
+            >Status
+            <select
+              name="status"
+              class="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2"
+            >
+              <option value="completed">Completed</option>
+              <option value="in_progress">In Progress</option>
+              <option value="pending" selected>Pending</option>
+              <option value="running">Running</option>
+              <option value="ended">Ended</option>
+            </select>
+          </label>
+          <button class="mt-4 w-full rounded-lg bg-greenx-700 text-white py-2">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // In-memory data
+      let projects = [
+        {
+          id: 1,
+          title: "Develop API Endpoints",
+          date: "Nov 25, 2024",
+          status: "running",
+          assignee: "Ari",
+          channel: "Instagram",
+        },
+        {
+          id: 2,
+          title: "Onboarding Flow",
+          date: "Nov 28, 2024",
+          status: "in_progress",
+          assignee: "Bea",
+          channel: "Facebook",
+        },
+        {
+          id: 3,
+          title: "Build Dashboard",
+          date: "Dec 3, 2024",
+          status: "completed",
+          assignee: "Cleo",
+          channel: "TikTok",
+        },
+        {
+          id: 4,
+          title: "Optimize Page Load",
+          date: "Dec 15, 2024",
+          status: "pending",
+          assignee: "Dan",
+          channel: "LinkedIn",
+        },
+        {
+          id: 5,
+          title: "Cross-Browser Testing",
+          date: "Dec 18, 2024",
+          status: "ended",
+          assignee: "Elle",
+          channel: "Twitter",
+        },
+      ];
+
+      const teammates = [
+        {
+          name: "Alexandra Deff",
+          role: "Github Project Repository",
+          state: "Completed",
+        },
+        {
+          name: "Edwin Adenike",
+          role: "Integrate User Authentication System",
+          state: "In Progress",
+        },
+        {
+          name: "Isaac Oluwatemilorun",
+          role: "Develop Search and Filter Functionality",
+          state: "Pending",
+        },
+        {
+          name: "David Oshoil",
+          role: "Responsive Layout for Homepage",
+          state: "Completed",
+        },
+      ];
+
+      // Elements
+      const kpiTotal = document.getElementById("kpiTotal");
+      const kpiEnded = document.getElementById("kpiEnded");
+      const kpiRunning = document.getElementById("kpiRunning");
+      const kpiPending = document.getElementById("kpiPending");
+      const projectList = document.getElementById("projectList");
+      const projectListRail = document.getElementById("projectListRail");
+      const teamList = document.getElementById("teamList");
+
+      // Render helpers
+      function renderKPIs() {
+        const ended = projects.filter(
+          (p) => p.status === "ended" || p.status === "completed"
+        ).length;
+        const running = projects.filter(
+          (p) => p.status === "running" || p.status === "in_progress"
+        ).length;
+        const pending = projects.filter((p) => p.status === "pending").length;
+        kpiTotal.textContent = projects.length;
+        kpiEnded.textContent = ended;
+        kpiRunning.textContent = running;
+        kpiPending.textContent = pending;
+        renderDonut(ended, running, pending);
+      }
+
+      function badge(status) {
+        const map = {
+          completed: "bg-green-100 text-green-800",
+          in_progress: "bg-amber-100 text-amber-800",
+          pending: "bg-ink-100 text-ink-800",
+          running: "bg-emerald-100 text-emerald-800",
+          ended: "bg-ink-200 text-ink-800",
+        };
+        const label =
+          {
+            completed: "Completed",
+            in_progress: "In Progress",
+            pending: "Pending",
+            running: "Running",
+            ended: "Ended",
+          }[status] || status;
+        return `<span class="rounded-full px-2 py-0.5 text-[11px] ${
+          map[status] || "bg-ink-100"
+        }">${label}</span>`;
+      }
+
+      function renderProjects() {
+        const item = (
+          p
+        ) => `<li class="flex items-center gap-3 rounded-xl border border-ink-100 px-3 py-2">
+				<span class="h-6 w-6 grid place-items-center rounded-full bg-ink-100">📁</span>
+				<div class="min-w-0">
+					<p class="font-medium truncate">${p.title}</p>
+					<p class="text-[12px] text-ink-500">${p.date}</p>
+				</div>
+				<div class="ml-auto">${badge(p.status)}</div>
+			</li>`;
+        projectList.innerHTML = projects.map(item).join("");
+        projectListRail.innerHTML = projects.map(item).join("");
+      }
+
+      function renderTeam() {
+        const row = (
+          m
+        ) => `<li class="flex items-center gap-3 rounded-xl border border-ink-100 p-3">
+				<img class="h-9 w-9 rounded-full object-cover" src="https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
+          m.name
+        )}" alt="">
+				<div class="min-w-0">
+					<p class="font-medium">${m.name}</p>
+					<p class="text-[12px] text-ink-600 truncate">Working on ${m.role}</p>
+				</div>
+				<div class="ml-auto">${badge(m.state.toLowerCase().replace(" ", "_"))}</div>
+			</li>`;
+        teamList.innerHTML = teammates.map(row).join("");
+      }
+
+      // Charts
+      let barChart, donutChart;
+      function renderBar() {
+        const ctx = document.getElementById("barChart");
+        if (barChart) barChart.destroy();
+        barChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["S", "M", "T", "W", "T", "F", "S"],
+            datasets: [
+              {
+                data: [12, 9, 14, 11, 16, 7, 10],
+                backgroundColor: "#165745",
+                borderRadius: 8,
+                barThickness: 20,
+              },
+              {
+                data: [8, 7, 6, 5, 4, 3, 2],
+                backgroundColor: "#cfdcff",
+                borderRadius: 8,
+                barThickness: 20,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false }, tooltip: { enabled: true } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: "#eef3f0" }, ticks: { display: false } },
+            },
+          },
+        });
+      }
+
+      function renderDonut(completed, running, pending) {
+        const ctx = document.getElementById("donut");
+        if (donutChart) donutChart.destroy();
+        donutChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: ["Completed", "In Progress", "Pending"],
+            datasets: [
+              {
+                data: [completed, running, pending],
+                backgroundColor: ["#1b6d53", "#f59e0b", "#c7d5cd"],
+                borderWidth: 0,
+                hoverOffset: 3,
+              },
+            ],
+          },
+          options: {
+            cutout: "65%",
+            plugins: { legend: { display: false }, tooltip: { enabled: true } },
+          },
+        });
+        // center text
+        Chart.defaults.font.family = "Inter, system-ui";
+        const total = completed + running + pending;
+        const pct = total ? Math.round((completed / total) * 100) : 0;
+        ctx.getContext("2d").save();
+        setTimeout(() => {
+          // draw after anim
+          const c = ctx.getContext("2d");
+          const { width } = ctx;
+          c.font = "700 18px Inter";
+          c.fillStyle = "#1b6d53";
+          c.textAlign = "center";
+          c.fillText(`${pct}%`, width / 2, 70);
+          c.font = "12px Inter";
+          c.fillStyle = "#6f8f86";
+          c.fillText("Project Ended", width / 2, 88);
+        }, 320);
+      }
+
+      // Timer (two mirrored displays)
+      let timerInt = null,
+        seconds = 0;
+      const t1 = document.getElementById("timer"),
+        t2 = document.getElementById("timer2");
+      function fmt(s) {
+        const h = String(Math.floor(s / 3600)).padStart(2, "0");
+        const m = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
+        const ss = String(s % 60).padStart(2, "0");
+        return `${h}:${m}:${ss}`;
+      }
+      function updateTimer() {
+        t1.textContent = t2.textContent = fmt(seconds);
+      }
+      function start() {
+        if (timerInt) return;
+        timerInt = setInterval(() => {
+          seconds++;
+          updateTimer();
+        }, 1000);
+      }
+      function pause() {
+        clearInterval(timerInt);
+        timerInt = null;
+      }
+      function reset() {
+        seconds = 0;
+        updateTimer();
+      }
+
+      // Modal + import
+      const modal = document.getElementById("modal");
+      document
+        .getElementById("addBtn")
+        .addEventListener("click", () => modal.classList.remove("hidden"));
+      document
+        .getElementById("newQuick")
+        .addEventListener("click", () => modal.classList.remove("hidden"));
+      document
+        .getElementById("closeModal")
+        .addEventListener("click", () => modal.classList.add("hidden"));
+      document.getElementById("projectForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        projects.unshift({
+          id: Date.now(),
+          title: fd.get("title"),
+          assignee: fd.get("assignee") || "Unknown",
+          status: fd.get("status"),
+          date: new Date().toDateString().slice(4),
+        });
+        modal.classList.add("hidden");
+        e.target.reset();
+        renderProjects();
+        renderKPIs();
+      });
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", async (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          try {
+            const text = await file.text();
+            const data = JSON.parse(text);
+            if (Array.isArray(data)) {
+              projects = data;
+              renderProjects();
+              renderKPIs();
+            } else alert("JSON must be an array of projects");
+          } catch {
+            alert("Failed to parse JSON");
+          }
+          e.target.value = "";
+        });
+
+      // Drawer
+      const drawer = document.getElementById("drawer");
+      document
+        .getElementById("drawerBtn")
+        .addEventListener("click", () => drawer.classList.remove("hidden"));
+      document
+        .getElementById("closeDrawer")
+        .addEventListener("click", () => drawer.classList.add("hidden"));
+      drawer.addEventListener("click", (e) => {
+        if (e.target === drawer) drawer.classList.add("hidden");
+      });
+
+      // Timer buttons
+      document.getElementById("startTimer").onclick = start;
+      document.getElementById("pauseTimer").onclick = pause;
+      document.getElementById("resetTimer").onclick = reset;
+      document.getElementById("start2").onclick = start;
+      document.getElementById("pause2").onclick = pause;
+      document.getElementById("reset2").onclick = reset;
+
+      // Boot
+      updateTimer();
+      renderProjects();
+      renderTeam();
+      renderKPIs();
+      renderBar();
+    </script>
+  </body>
+</html>
